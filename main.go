@@ -2,11 +2,16 @@ package main
 
 import (
 	"fmt"
+	"net/http"
 	"os"
 	"time"
 
 	_ "github.com/go-sql-driver/mysql"
 )
+
+func helloWorldPage(w http.ResponseWriter, r *http.Request) {
+	fmt.Fprint(w, "Hello World!")
+}
 
 func main() {
 	fmt.Println("Start main execution")
@@ -88,4 +93,8 @@ func main() {
 	} else {
 		fmt.Println("Successful delete operation")
 	}
+
+	// Hello World Server
+	http.HandleFunc("/", helloWorldPage)
+	http.ListenAndServe("", nil)
 }
